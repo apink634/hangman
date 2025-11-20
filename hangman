@@ -1,0 +1,104 @@
+import random
+
+
+Hangman_pics = {
+    6: """
+     ______
+    |      |
+    |
+    |
+    |
+    |
+    =========
+    """,
+    5: """
+     ______
+    |      |
+    |      O
+    |
+    |
+    |
+    =========
+    """,
+    4: """
+     ______
+    |      |
+    |      O
+    |      |
+    |
+    |
+    =========
+    """,
+    3: """
+     ______
+    |      |
+    |      O
+    |     /|
+    |
+    |
+    =========
+    """,
+    2: """
+     ______
+    |      |
+    |      O
+    |     /|\
+    |
+    |
+    =========
+    """,
+    1: """
+     ______
+    |      |
+    |      O
+    |     /|\
+    |     /
+    |
+    =========
+    """,
+    0: """
+     ______
+    |      |
+    |      O
+    |     /|\
+    |     / \
+    |
+    =========
+    GAME OVER!
+    """
+}
+#add more 
+Word_categories = {
+    "literature": {"word": "Crime and Punishment", "definition": "a novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov, an impoverished former student who murders an old pawnbroker and her sister to prove his theory that certain extraordinary men are above the law."},
+    "culture": {"word": "Diwali", "definition": "the five-day Hindu festival of lights that symbolizes the victory of good over evil and the beginning of the new year."},
+    "history": {"word": "pyramid", "definition": "Ancient monumental structure"},
+    "science": {"word": "gravity", "definition": "Force pulling objects toward Earth"},
+    "countries": {"word": "canada", "definition": "A country in North America"},
+}
+
+def choose_word (category):
+    category- category.lowed()
+    if category in Word_categories:
+        return Word_categories[category]["word"]
+    elif category.lower() == "random":
+        key = random.choice(list(Word_categories.keys()))
+        return Word_categories[key]["word"]
+    else:
+        print ("Invalid choice, random selected")
+        rando = random.choice(list(Word_categories.keys()))
+        return Word_categories[rando]["word"]
+    
+
+print("\nCategories:")
+for i in Word_categories.keys():
+        print ("_", i.capitalize())
+
+user_i = input("Choose a category")
+word, definition = choose_word(user_i)
+word = word.lower()
+
+lives = 6
+guessed_letters=[]
+current_state = []
+for letter in word:
+    current_state.append ("_")
