@@ -1,3 +1,4 @@
+
 import random
 
 
@@ -69,36 +70,94 @@ Hangman_pics = {
 }
 #add more 
 Word_categories = {
-    "literature": {"word": "Crime and Punishment", "definition": "a novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov, an impoverished former student who murders an old pawnbroker and her sister to prove his theory that certain extraordinary men are above the law."},
-    "culture": {"word": "Diwali", "definition": "the five-day Hindu festival of lights that symbolizes the victory of good over evil and the beginning of the new year."},
-    "history": {"word": "pyramid", "definition": "Ancient monumental structure"},
-    "science": {"word": "gravity", "definition": "Force pulling objects toward Earth"},
-    "countries": {"word": "canada", "definition": "A country in North America"},
+    "literature": [
+        {"word": "Crime and Punishment", "definition": "A novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov, an impoverished former student who murders an old pawnbroker and her sister to prove his theory that certain extraordinary men are above the law."}
+    ],
+    "culture": [
+        {"word": "Diwali", "definition": "The five-day Hindu festival of lights that symbolizes the victory of good over evil and the beginning of the new year."}
+    ],
+    "history": [
+        {"word": "pyramid", "definition": "A monumental structure from ancient Egypt."},
+        {"word": "empire", "definition": "A group of states or countries under a single ruler."},
+        {"word": "revolution", "definition": "A dramatic and wide-reaching change."}
+    ],
+    "science": [
+        {"word": "gravity", "definition": "The force that pulls objects toward Earth."},
+        {"word": "atom", "definition": "The basic unit of a chemical element."},
+        {"word": "energy", "definition": "The ability to do work."}
+    ],
+    "countries": [
+        {"word": "canada", "definition": "A large country in North America."},
+        {"word": "brazil", "definition": "The largest country in South America."},
+        {"word": "japan", "definition": "An island country in East Asia."}
+    ]
 }
 
-def choose_word (category):
-    category- category.lowed()
+def choose_word(category):
+    category = category.lower()
     if category in Word_categories:
-        return Word_categories[category]["word"]
-    elif category.lower() == "random":
-        key = random.choice(list(Word_categories.keys()))
-        return Word_categories[key]["word"]
+        word_entry = random.choice(Word_categories[category])
+        return word_entry["word"], word_entry["definition"]
     else:
-        print ("Invalid choice, random selected")
+        print("Invalid choice, random selected")
         rando = random.choice(list(Word_categories.keys()))
-        return Word_categories[rando]["word"]
+        word_entry = random.choice(Word_categories[rando])
+        return word_entry["word"], word_entry["definition"]
     
+def play_hangman():
+    print("\nCategories:")
+    for i in Word_categories.keys():
+            print ("_", i.capitalize())
 
-print("\nCategories:")
-for i in Word_categories.keys():
-        print ("_", i.capitalize())
+    user_i = input("Choose a category")
+    word, definition = choose_word(user_i)
+    word = word.lower()
 
-user_i = input("Choose a category")
-word, definition = choose_word(user_i)
-word = word.lower()
+    lives = 6
+    guessed_letters=[]
+    current_state = []
+    for letter in word:
+        if letter.isalpha():
+            current_state.append("_")
+        else:
+            current_state.append(letter)
+    while True:
+        print(Hangman_pics[lives])
+        print("Word: ", " ".join(current_state))
+        print("Guessed letters:", guessed_letters)
 
-lives = 6
-guessed_letters=[]
-current_state = []
-for letter in word:
-    current_state.append ("_")
+        guess = input("\nEnter a single letter: ").lower()
+
+        if len(guess) != 1 or not guess.isalpha():
+            print("Please enter exactly ONE letter.\n")
+            continue
+        if guess in guessed_letters:
+            print("You already guessed that letter.\n")
+            continue
+        guessed_letters.append(guess)
+
+        if guess in word:
+            print("Correct!")
+            for idx, letter in enumerate(word):
+                if letter == guess:
+                    current_state[idx] = guess
+            if "_" not in current_state:
+                print("\n YOU WIN! ")
+                print("The word was:", word)
+                print("Definition:", definition)
+                break
+        else:
+            print("Incorrect\n")
+            lives -= 1
+            if lives == 0:
+                print(Hangman_pics[lives])
+                print("You lost!")
+                print("The word was:", word)
+                print("Definition:", definition)
+                break
+    again = input("\nPlay again? (yes/no): ").lower()
+    if again=="yes":
+        play_hangman()
+    else:
+       print("\nThanks for playing Hangman! Goodbye.")
+play_hangman() 
