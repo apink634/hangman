@@ -1,7 +1,6 @@
-
 import random
 
-
+# 
 Hangman_pics = {
     6: """
      ______
