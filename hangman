@@ -1,6 +1,6 @@
-import random
+import random 
 
-# 
+# imports random module used to select words
 Hangman_pics = {
     6: """
      ______
@@ -67,7 +67,8 @@ Hangman_pics = {
     GAME OVER!
     """
 }
-#add more 
+#Dictionary to store word categories, words, and their definitions
+#Each inner dictionary holds a word along with its definiton
 Word_categories = {
     "literature": [
         {"word": "Crime and Punishment", "definition": "A novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov, an impoverished former student who murders an old pawnbroker and her sister to prove his theory that certain extraordinary men are above the law."}
@@ -92,71 +93,94 @@ Word_categories = {
     ]
 }
 
+#Function to select words and their definitons based on the chosen category
 def choose_word(category):
+    #Convertss the user's category to be case-insensitive
     category = category.lower()
+    #check if chosen category exists
     if category in Word_categories:
+        #select random dictionary from category
         word_entry = random.choice(Word_categories[category])
+        #returns word and defintioni
         return word_entry["word"], word_entry["definition"]
     else:
+        #in case category selected is invalid, display an error message and select a random category
         print("Invalid choice, random selected")
         rando = random.choice(list(Word_categories.keys()))
         word_entry = random.choice(Word_categories[rando])
         return word_entry["word"], word_entry["definition"]
     
+
+#main function to run the game
 def play_hangman():
+    #prints options for users to choose from
     print("\nCategories:")
     for i in Word_categories.keys():
             print ("_", i.capitalize())
-
+            #capitalise the first letter
+#get users choice of category
     user_i = input("Choose a category")
     word, definition = choose_word(user_i)
+    #convert word to lowercase for guessing
     word = word.lower()
 
-    lives = 6
-    guessed_letters=[]
-    current_state = []
+    lives = 6 #initiate the game with users having six lives
+    guessed_letters=[] #list for storing letters already guessed
+    current_state = [] #list for representing current guessed state of words
+
+    #initiate the guessing state for the word
     for letter in word:
+        # If the character is a letter, replace it with an underscore
+        #keep non-alphabetic characters (like spaces or hyphens) visible
         if letter.isalpha():
+
             current_state.append("_")
         else:
             current_state.append(letter)
+   #game loop
     while True:
         print(Hangman_pics[lives])
+        #print the current hangman figure based on the remaining lives
         print("Word: ", " ".join(current_state))
         print("Guessed letters:", guessed_letters)
 
         guess = input("\nEnter a single letter: ").lower()
 
+#Input validation: check if the input is a single letter or if it has already been guesed
         if len(guess) != 1 or not guess.isalpha():
             print("Please enter exactly ONE letter.\n")
             continue
         if guess in guessed_letters:
             print("You already guessed that letter.\n")
             continue
+        #add the valid guess to the list of guessed letters
         guessed_letters.append(guess)
 
+#if the guess is correct (letter is in the word) display updated hangman display based on blanks
         if guess in word:
             print("Correct!")
             for idx, letter in enumerate(word):
                 if letter == guess:
                     current_state[idx] = guess
+                    #check for a win condition (no more underscores left)
             if "_" not in current_state:
                 print("\n YOU WIN! ")
                 print("The word was:", word)
                 print("Definition:", definition)
                 break
-        else:
+        else: #if guess is wrong
             print("Incorrect\n")
-            lives -= 1
-            if lives == 0:
-                print(Hangman_pics[lives])
+            lives -= 1 #decrement lives
+            if lives == 0: #check if player has died
+                print(Hangman_pics[lives]) #print final display
                 print("You lost!")
                 print("The word was:", word)
                 print("Definition:", definition)
                 break
-    again = input("\nPlay again? (yes/no): ").lower()
+    again = input("\nPlay again? (yes/no): ").lower() #ask user if they want to play again
     if again=="yes":
         play_hangman()
     else:
        print("\nThanks for playing Hangman! Goodbye.")
+#call function to start game       
 play_hangman() 
