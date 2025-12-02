@@ -71,10 +71,16 @@ Hangman_pics = {
 #Each inner dictionary holds a word along with its definiton
 Word_categories = {
     "literature": [
-        {"word": "Crime and Punishment", "definition": "A novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov, an impoverished former student who murders an old pawnbroker and her sister to prove his theory that certain extraordinary men are above the law."}
+        {"word": "Crime and Punishment", "definition": "A novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov, an impoverished former student who murders an old pawnbroker and her sister to prove his theory that certain extraordinary men are above the law."},
+        {"word": "The Yellow Walpaper", "definition": "short story by Charlotte Perkins Gilman (1892) that explores mental health and women’s oppression."},
+        {"word": "Dante's Inferno", "definition": "is an epic poem by Dante Alighieri, written in the early 14th century."}
+
     ],
     "culture": [
-        {"word": "Diwali", "definition": "The five-day Hindu festival of lights that symbolizes the victory of good over evil and the beginning of the new year."}
+        {"word": "Diwali", "definition": "The five-day Hindu festival of lights that symbolizes the victory of good over evil and the beginning of the new year."},
+        {"word": "Christmas", "definition": "A Christian festival celebrating the birth of Jesus Christ, observed with gifts, decorated trees, and religious services."},
+        {"word": "Carnival", "definition": "A festival held before Lent, known for parades, costumes, music, and celebration, especially in Brazil and Europe."}
+        
     ],
     "history": [
         {"word": "pyramid", "definition": "A monumental structure from ancient Egypt."},
