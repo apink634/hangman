@@ -1,163 +1,398 @@
-
 import random
 
 
+
+
+#Dictionary for lives to hangman picture
 Hangman_pics = {
-    6: """
-     ______
-    |      |
-    |
-    |
-    |
-    |
-    =========
-    """,
-    5: """
-     ______
-    |      |
-    |      O
-    |
-    |
-    |
-    =========
-    """,
-    4: """
-     ______
-    |      |
-    |      O
-    |      |
-    |
-    |
-    =========
-    """,
-    3: """
-     ______
-    |      |
-    |      O
-    |     /|
-    |
-    |
-    =========
-    """,
-    2: """
-     ______
-    |      |
-    |      O
-    |     /|\
-    |
-    |
-    =========
-    """,
-    1: """
-     ______
-    |      |
-    |      O
-    |     /|\
-    |     /
-    |
-    =========
-    """,
-    0: """
-     ______
-    |      |
-    |      O
-    |     /|\
-    |     / \
-    |
-    =========
-    GAME OVER!
-    """
+   6: """
+    ______
+   |      |
+   |
+   |
+   |
+   |
+   =========
+   """,
+   5: """
+    ______
+   |      |
+   |      O
+   |
+   |
+   |
+   =========
+   """,
+   4: """
+    ______
+   |      |
+   |      O
+   |      |
+   |
+   |
+   =========
+   """,
+   3: """
+    ______
+   |      |
+   |      O
+   |     /|
+   |
+   |
+   =========
+   """,
+   2: """
+    ______
+   |      |
+   |      O
+   |     /|\\
+   |
+   |
+   =========
+   """,
+   1: """
+    ______
+   |      |
+   |      O
+   |     /|\\
+   |     /
+   |
+   =========
+   """,
+   0: """
+    ______
+   |      |
+   |      O
+   |     /|\\
+   |     / \\
+   |
+   =========
+   GAME OVER!
+   """
 }
-#add more 
+
+
+
+
+#dictionary of categories, words, definitions
 Word_categories = {
-    "literature": [
-        {"word": "Crime and Punishment", "definition": "A novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov, an impoverished former student who murders an old pawnbroker and her sister to prove his theory that certain extraordinary men are above the law."}
-    ],
-    "culture": [
-        {"word": "Diwali", "definition": "The five-day Hindu festival of lights that symbolizes the victory of good over evil and the beginning of the new year."}
-    ],
-    "history": [
-        {"word": "pyramid", "definition": "A monumental structure from ancient Egypt."},
-        {"word": "empire", "definition": "A group of states or countries under a single ruler."},
-        {"word": "revolution", "definition": "A dramatic and wide-reaching change."}
-    ],
-    "science": [
-        {"word": "gravity", "definition": "The force that pulls objects toward Earth."},
-        {"word": "atom", "definition": "The basic unit of a chemical element."},
-        {"word": "energy", "definition": "The ability to do work."}
-    ],
-    "countries": [
-        {"word": "canada", "definition": "A large country in North America."},
-        {"word": "brazil", "definition": "The largest country in South America."},
-        {"word": "japan", "definition": "An island country in East Asia."}
-    ]
+   #its a Dictionary insde a list, inside a dictionary
+   "literature": [
+       {"word": "Crime and Punishment", "definition": "A novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov."},
+       {"word": "The Yellow Wallpaper", "definition": "A short story by Charlotte Perkins Gilman exploring mental health and oppression."},
+       {"word": "Dante's Inferno", "definition": "An epic poem by Dante Alighieri, written in the early 14th century."}
+   ],
+   "culture": [
+       {"word": "Diwali", "definition": "A five-day Hindu festival of lights symbolizing the victory of good over evil."},
+       {"word": "Christmas", "definition": "A Christian festival celebrating the birth of Jesus Christ."},
+       {"word": "Carnival", "definition": "A festival before Lent with parades, costumes, and celebrations."}
+   ],
+   "history": [
+       {"word": "pyramid", "definition": "A monumental structure from ancient Egypt."},
+       {"word": "empire", "definition": "A group of states or countries under one ruler."},
+       {"word": "revolution", "definition": "A dramatic and wide-reaching change."}
+   ],
+   "science": [
+       {"word": "gravity", "definition": "The force that pulls objects toward Earth."},
+       {"word": "atom", "definition": "The basic unit of a chemical element."},
+       {"word": "energy", "definition": "The ability to do work."}
+   ],
+   "countries": [
+       {"word": "canada", "definition": "A large country in North America."},
+       {"word": "brazil", "definition": "The largest country in South America."},
+       {"word": "japan", "definition": "An island country in East Asia."}
+   ]
 }
+
+
+
+
+# teacher mode
+#Fuction to add words and definition to a category
+def fill_category(item_choice):
+   #checks for if the catgories exists
+   if item_choice not in Word_categories:
+       print("Category doesn't exist.")
+       return
+   #loop for entering the new word and deffinition
+   while True:
+       new_word = input("Enter the NEW word/phrase: ")
+       new_def = input("Enter the definition: ")
+       #apend the items
+       Word_categories[item_choice].append({"word": new_word, "definition": new_def})
+
+
+
+
+       print(f"\nAdded to '{item_choice}': {new_word} - {new_def}")
+       #asks if more words need to be added
+       userStopChoice = input("Want to add one more word? (yes/no): ").lower()
+       if userStopChoice != "yes" and userStopChoice != "no":
+               print("Invalid choice. Program terminated.")
+               break #break if they say invalid input
+       if userStopChoice == "no":
+           #breaks the code if no
+           break
+#teacher mode definiton
+def teacher_mode():
+   #give options of actions
+   print("\n--- TEACHER MODE ---")
+   print("1. Add a NEW category")
+   print("2. Add a NEW word to an existing category")
+   #input the choice
+   choice = input("Choose an option (1 or 2): ")
+
+
+
+
+   # Create new category
+   if choice == "1":
+       while True:
+           #enter the category name
+           new_category = input("Enter the NEW category name: ").lower()
+
+
+
+
+           # check if it already exists or add it
+           if new_category in Word_categories:
+               print("This category already exists.")
+           else:
+               Word_categories[new_category] = []
+               print(f"Category '{new_category}' created!")
+
+
+
+
+           #ask if you the use wants to add words to the category
+           continue_choice = input("Want to add words to the category? (yes/no): ").lower()
+           if continue_choice == "yes":
+               #use the fuction if yes
+               fill_category(new_category)
+
+
+
+
+           #ask if they want to add the category
+           userStopChoice = input("Want to add another category to the game? (yes/no): ").lower()
+           if userStopChoice != "yes" and userStopChoice != "no":
+               print("Invalid choice. Program terminated.")
+               break #break if they say invalid input
+           elif userStopChoice == "no":
+               break #break if they say no
+
+
+
+
+   # Add to existing category
+   elif choice == "2":
+       print("\nAvailable categories:")
+
+
+
+
+       #loop to print items
+       for item in Word_categories:
+           print("-", item.capitalize())
+
+
+
+
+       #choose catagory and apply the fuctions
+       item_choice = input("\nChoose a category to add a word to: ").lower()
+       fill_category(item_choice)
+ 
+   #return to the main menu
+   print("\nReturning to main menu...\n")
+   main_menu()
+
+
+
+
+
+
+
+
+# student mode/game mode
+
+
+
 
 def choose_word(category):
-    category = category.lower()
-    if category in Word_categories:
-        word_entry = random.choice(Word_categories[category])
-        return word_entry["word"], word_entry["definition"]
-    else:
-        print("Invalid choice, random selected")
-        rando = random.choice(list(Word_categories.keys()))
-        word_entry = random.choice(Word_categories[rando])
-        return word_entry["word"], word_entry["definition"]
-    
+   # Convert user input to lowercase to avoid error
+   category = category.lower()
+
+
+
+
+   # If the user chooses a valid category
+   if category in Word_categories:
+       #pick random
+       word_entry = random.choice(Word_categories[category])
+       return word_entry["word"], word_entry["definition"]
+   else:
+       # If the category doesn't exist, choose a random category instead
+       print("Invalid choice, random category selected.")
+       rando = random.choice(list(Word_categories.keys()))
+       word_entry = random.choice(Word_categories[rando])
+       return word_entry["word"], word_entry["definition"]
+
+
+
+
+#MAIN GAME
 def play_hangman():
-    print("\nCategories:")
-    for i in Word_categories.keys():
-            print ("_", i.capitalize())
 
-    user_i = input("Choose a category")
-    word, definition = choose_word(user_i)
-    word = word.lower()
 
-    lives = 6
-    guessed_letters=[]
-    current_state = []
-    for letter in word:
-        if letter.isalpha():
-            current_state.append("_")
-        else:
-            current_state.append(letter)
-    while True:
-        print(Hangman_pics[lives])
-        print("Word: ", " ".join(current_state))
-        print("Guessed letters:", guessed_letters)
 
-        guess = input("\nEnter a single letter: ").lower()
 
-        if len(guess) != 1 or not guess.isalpha():
-            print("Please enter exactly ONE letter.\n")
-            continue
-        if guess in guessed_letters:
-            print("You already guessed that letter.\n")
-            continue
-        guessed_letters.append(guess)
+   # Display available categories
+   print("\nCategories:")
 
-        if guess in word:
-            print("Correct!")
-            for idx, letter in enumerate(word):
-                if letter == guess:
-                    current_state[idx] = guess
-            if "_" not in current_state:
-                print("\n YOU WIN! ")
-                print("The word was:", word)
-                print("Definition:", definition)
-                break
-        else:
-            print("Incorrect\n")
-            lives -= 1
-            if lives == 0:
-                print(Hangman_pics[lives])
-                print("You lost!")
-                print("The word was:", word)
-                print("Definition:", definition)
-                break
-    again = input("\nPlay again? (yes/no): ").lower()
-    if again=="yes":
-        play_hangman()
-    else:
-       print("\nThanks for playing Hangman! Goodbye.")
-play_hangman() 
+
+
+
+   for i in Word_categories.keys():
+       print("_", i.capitalize())
+   #Ask user for category and pick a word
+   user_i = input("Choose a category: ")
+   word, definition = choose_word(user_i)
+   word = word.lower()
+
+
+
+
+   # Initialize game variables
+   lives = 6
+   guessed_letters = []
+   current_state = []
+
+
+
+
+   # Prepare the blank version of the word with dashes
+   for letter in word:
+       if letter.isalpha(): #checks for an alphabet and then changes it to '_'
+           current_state.append("_")
+       else:
+           current_state.append(letter) #helps keep thec spaces
+
+
+
+
+   # GAME LOOP
+   while True:
+       # Display hangman, word progress, and guessed letters
+       print(Hangman_pics[lives])
+       print("Word:", " ".join(current_state))
+       print("Guessed letters:", guessed_letters)
+
+
+
+
+       #ask user for a guess
+       guess = input("\nEnter a single letter: ").lower()
+
+
+
+
+       # Validate the guess
+       if len(guess) != 1 or not guess.isalpha():
+           print("Please enter exactly ONE letter.\n")
+           continue
+       if guess in guessed_letters:
+           print("You already guessed that letter.\n")
+           continue
+
+
+
+
+       guessed_letters.append(guess)  #store the valid guess
+
+
+
+
+       # If guess is correct then reveal all matching letters
+       if guess in word:
+           print("Correct!")
+           #loop through each letter in the word, keeping track of its position
+           for idx, letter in enumerate(word):
+               if letter == guess: # Check if the guessed letter matches the current letter in the word
+                   current_state[idx] = guess # If it matches, reveal that letter in the current_state list
+
+
+
+
+           #check if player has completed the word
+           if "_" not in current_state:
+               print("\nYOU WIN!")
+               print("The word was:", word)
+               print("Definition:", definition)
+               break
+       #if guess is wrong then lose a life
+       else:
+           print("Incorrect\n")
+           lives -= 1
+         
+           #If no lives left → game over
+           if lives == 0:
+               print(Hangman_pics[lives])
+               print("You lost!")
+               print("The word was:", word)
+               print("Definition:", definition)
+               break
+ 
+   #after the game ends, ask if the user wants to play again
+   again = input("\nPlay again? (yes/no): ").lower()
+   if again == "yes":
+       play_hangman() #restart the game
+   else:
+       print("\nReturning to main menu...\n")
+       main_menu() #go back to the main menu function
+
+
+
+
+
+
+
+
+#main menu
+def main_menu():
+
+
+
+
+   # Display the main menu options for the user
+   print("\n===== HANGMAN PROGRAM =====")
+   print("1. Student Mode (Play Game)")
+   print("2. Teacher Mode (Add Categories & Words)")
+   print("3. Quit")
+
+
+
+
+   #Ask the user to choose a mode
+   mode = input("Choose a mode (1/2/3): ")
+
+
+
+
+   #If they choose Student Mode --> start the hangman game
+   if mode == "1":
+       play_hangman()
+   #If they choose Teacher Mode --> allow adding categories/words
+   elif mode == "2":
+       teacher_mode()
+   #If they choose anything else —> exit the program
+   else:
+       print("\nGoodbye!")
+
+
+
+
+#start program
+main_menu()
+
+
+
