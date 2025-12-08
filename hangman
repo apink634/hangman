@@ -69,70 +69,6 @@ Hangman_pics = {
    =========
    GAME OVER!
    """
-   6: """
-    ______
-   |      |
-   |
-   |
-   |
-   |
-   =========
-   """,
-   5: """
-    ______
-   |      |
-   |      O
-   |
-   |
-   |
-   =========
-   """,
-   4: """
-    ______
-   |      |
-   |      O
-   |      |
-   |
-   |
-   =========
-   """,
-   3: """
-    ______
-   |      |
-   |      O
-   |     /|
-   |
-   |
-   =========
-   """,
-   2: """
-    ______
-   |      |
-   |      O
-   |     /|\\
-   |
-   |
-   =========
-   """,
-   1: """
-    ______
-   |      |
-   |      O
-   |     /|\\
-   |     /
-   |
-   =========
-   """,
-   0: """
-    ______
-   |      |
-   |      O
-   |     /|\\
-   |     / \\
-   |
-   =========
-   GAME OVER!
-   """
 }
 
 
@@ -140,32 +76,6 @@ Hangman_pics = {
 
 #dictionary of categories, words, definitions
 Word_categories = {
-   #its a Dictionary insde a list, inside a dictionary
-   "literature": [
-       {"word": "Crime and Punishment", "definition": "A novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov."},
-       {"word": "The Yellow Wallpaper", "definition": "A short story by Charlotte Perkins Gilman exploring mental health and oppression."},
-       {"word": "Dante's Inferno", "definition": "An epic poem by Dante Alighieri, written in the early 14th century."}
-   ],
-   "culture": [
-       {"word": "Diwali", "definition": "A five-day Hindu festival of lights symbolizing the victory of good over evil."},
-       {"word": "Christmas", "definition": "A Christian festival celebrating the birth of Jesus Christ."},
-       {"word": "Carnival", "definition": "A festival before Lent with parades, costumes, and celebrations."}
-   ],
-   "history": [
-       {"word": "pyramid", "definition": "A monumental structure from ancient Egypt."},
-       {"word": "empire", "definition": "A group of states or countries under one ruler."},
-       {"word": "revolution", "definition": "A dramatic and wide-reaching change."}
-   ],
-   "science": [
-       {"word": "gravity", "definition": "The force that pulls objects toward Earth."},
-       {"word": "atom", "definition": "The basic unit of a chemical element."},
-       {"word": "energy", "definition": "The ability to do work."}
-   ],
-   "countries": [
-       {"word": "canada", "definition": "A large country in North America."},
-       {"word": "brazil", "definition": "The largest country in South America."},
-       {"word": "japan", "definition": "An island country in East Asia."}
-   ]
    #its a Dictionary insde a list, inside a dictionary
    "literature": [
        {"word": "Crime and Punishment", "definition": "A novel by Fyodor Dostoevsky about the psychological torment of Raskolnikov."},
